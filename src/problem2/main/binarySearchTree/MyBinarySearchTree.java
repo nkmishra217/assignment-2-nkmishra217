@@ -1,17 +1,19 @@
-/*
- *  Created by IntelliJ IDEA.
- *  User: Vaibhav
- *  Date: 23-Mar-20
- *  Time: 7:17 PM
- */
-package problem1.mybst;
+package problem2.main.binarySearchTree;
 
 import problem1.node.TreeNode;
+import problem4.myqueue.MyQueue;
 
 // to implement BinarySearchTree
 public class MyBinarySearchTree {
     private TreeNode root;
     private int countRight;
+    private MyQueue preQueue;
+    private MyQueue postQueue;
+
+    public MyBinarySearchTree(MyQueue preQueue, MyQueue postQueue) {
+        this.preQueue = preQueue;
+        this.postQueue = postQueue;
+    }
 
     public void insert(int data) {
         TreeNode node = new TreeNode(data);
@@ -36,6 +38,22 @@ public class MyBinarySearchTree {
         }
     }
 
+    public MyQueue getPreQueue() {
+        return preQueue;
+    }
+
+    public void setPreQueue(MyQueue preQueue) {
+        this.preQueue = preQueue;
+    }
+
+    public MyQueue getPostQueue() {
+        return postQueue;
+    }
+
+    public void setPostQueue(MyQueue postQueue) {
+        this.postQueue = postQueue;
+    }
+
     public TreeNode getRoot() {
         return root;
     }
@@ -48,9 +66,19 @@ public class MyBinarySearchTree {
         if (temp == null) {
             return;
         } else {
-            System.out.println(temp.getData());
+            preQueue.enqueue(temp.getData());
             preOrder(temp.getLeft());
             preOrder(temp.getRight());
+        }
+    }
+
+    public void postOrder(TreeNode temp) {
+        if (temp == null) {
+            return;
+        } else {
+            postOrder(temp.getLeft());
+            postOrder(temp.getRight());
+            postQueue.enqueue(temp.getData());
         }
     }
 

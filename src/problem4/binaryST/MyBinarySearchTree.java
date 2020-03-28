@@ -1,17 +1,18 @@
-/*
- *  Created by IntelliJ IDEA.
- *  User: Vaibhav
- *  Date: 23-Mar-20
- *  Time: 7:17 PM
- */
-package problem1.mybst;
+package problem4.binaryST;
+
 
 import problem1.node.TreeNode;
+import problem4.myqueue.MyQueue;
 
 // to implement BinarySearchTree
 public class MyBinarySearchTree {
+    private MyQueue myQueue;
     private TreeNode root;
-    private int countRight;
+
+
+    public MyBinarySearchTree(MyQueue queue) {
+        this.myQueue = queue;
+    }
 
     public void insert(int data) {
         TreeNode node = new TreeNode(data);
@@ -48,7 +49,8 @@ public class MyBinarySearchTree {
         if (temp == null) {
             return;
         } else {
-            System.out.println(temp.getData());
+//            System.out.println(temp.getData());
+            myQueue.enqueue(temp.getData());
             preOrder(temp.getLeft());
             preOrder(temp.getRight());
         }
@@ -62,35 +64,6 @@ public class MyBinarySearchTree {
             inOrder(temp.getLeft());
             System.out.println(temp.getData());
             inOrder(temp.getRight());
-        }
-    }
-
-    public int getCountRight() {
-        return countRight;
-    }
-
-    public void setCountRight(int countRight) {
-        this.countRight = countRight;
-    }
-
-    public void traverse() {
-        TreeNode current = root;
-        TreeNode parent = null;
-        this.countRight = 0;
-        while (current != null) {
-            if (current.getLeft() == null) {
-                countRight++;
-            }
-            if (parent.getData() == current.getData()) {
-
-            }
-            if (parent.getData() < current.getData()) {
-                System.out.println(current.getData());
-                current = current.getLeft();
-            }
-            if (parent.getData() > current.getData()) {
-                current = current.getRight();
-            }
         }
     }
 }
